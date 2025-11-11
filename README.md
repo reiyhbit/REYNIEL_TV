@@ -82,7 +82,7 @@ Here's a few ways to solve it:
 ![Local Image](./img/timeshift2.png)
 ![Local Image](./img/timeshift3.png)
 
-Test out this feature with this playlist: https://dbghelp.github.io/player.html?file=https://dbghelp.github.io/singapore.m3u8
+Test out this feature with this playlist: https://reiyhbit.github.io/player.html?file=https://dbghelp.github.io/singapore.m3u8
 
 Often, platforms providing livestream feeds for IPTV providers include a timeshift feature by adding additional HTTP parameters. However, this feature is typically not made available to subscribers of the IPTV service. We can access this feature by injecting the correct HTTP parameters ourselves. Usually, a timeshift of at least 6 hours is allowed, and some platforms allow more than 24 hours. Depending on the channel, even with the same IPTV provider, some channels allow a longer timeshift, while others do not allow timeshift at all.
 
