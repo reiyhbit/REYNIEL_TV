@@ -22,18 +22,19 @@
             overflow: hidden;
         }
         
-        /* Mobile-first layout */
+        /* 50/50 Layout */
         #app-container {
             display: flex;
             flex-direction: column;
             height: 100vh;
         }
         
-        /* Video player takes most space */
+        /* Video player - 50% */
         #video-container {
-            flex: 1;
+            height: 50vh;
             background: #000;
             position: relative;
+            flex-shrink: 0;
         }
         
         #video {
@@ -42,115 +43,104 @@
             object-fit: contain;
         }
         
-        /* Bottom controls */
-        #controls {
-            background: #2d2d2d;
-            padding: 10px;
-            border-top: 1px solid #444;
-        }
-        
-        .control-buttons {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-        
-        .control-btn {
-            flex: 1;
-            padding: 10px;
-            background: #61dafb;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        
-        .control-btn:active {
-            background: #4fa3c4;
-            transform: scale(0.98);
-        }
-        
-        /* Channel selector */
-        #channel-selector {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        #channel-search {
-            flex: 1;
-            padding: 10px;
-            background: #3c4043;
-            border: 1px solid #444;
-            border-radius: 8px;
+        /* Maximize button */
+        #maximize-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
             color: white;
-            font-size: 14px;
-        }
-        
-        #channel-list-btn {
-            padding: 10px 15px;
-            background: #61dafb;
-            color: #000;
             border: none;
-            border-radius: 8px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
             cursor: pointer;
-            font-size: 14px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        /* Channel list overlay */
-        #channel-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
+        #maximize-btn:active {
+            background: rgba(97, 218, 251, 0.8);
         }
         
-        #channel-header {
-            padding: 15px;
+        /* Controls - 50% */
+        #controls-container {
+            flex: 1;
             background: #2d2d2d;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            height: 50vh;
+            overflow: hidden;
+        }
+        
+        /* Channel info */
+        #channel-info {
+            padding: 15px;
+            background: #3c4043;
             border-bottom: 1px solid #444;
         }
         
-        #close-channels {
-            background: #ff4444;
-            color: white;
+        #current-channel {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        #channel-status {
+            font-size: 14px;
+            color: #61dafb;
+        }
+        
+        /* Navigation buttons */
+        #nav-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 15px;
+        }
+        
+        .nav-btn {
+            padding: 15px;
+            background: #61dafb;
+            color: #000;
             border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
         }
         
-        #channels-list {
+        .nav-btn:active {
+            background: #4fa3c4;
+            transform: scale(0.95);
+        }
+        
+        /* Quick channels */
+        #quick-channels {
             flex: 1;
             overflow-y: auto;
             padding: 10px;
         }
         
-        .channel-item {
+        .quick-channel {
             display: flex;
             align-items: center;
             padding: 12px;
             margin-bottom: 8px;
-            background: #2d2d2d;
+            background: #3c4043;
             border-radius: 8px;
             cursor: pointer;
         }
         
-        .channel-item:active {
+        .quick-channel:active {
             background: #61dafb;
             color: #000;
         }
         
-        .channel-item.active {
+        .quick-channel.active {
             background: #4fa3c4;
         }
         
@@ -167,21 +157,41 @@
             flex: 1;
         }
         
-        /* EPG overlay */
-        #epg-overlay {
+        /* Fullscreen mode */
+        .fullscreen #video-container {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .fullscreen #controls-container {
+            display: none;
+        }
+        
+        .fullscreen #maximize-btn {
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Channel list overlay */
+        #channel-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #1a1a1a;
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1001;
             display: none;
             flex-direction: column;
         }
         
-        #epg-header {
-            padding: 15px;
+        #channel-header {
+            padding: 20px;
             background: #2d2d2d;
             display: flex;
             justify-content: space-between;
@@ -189,19 +199,39 @@
             border-bottom: 1px solid #444;
         }
         
-        #close-epg {
+        #close-channels {
             background: #ff4444;
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        #channels-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .channel-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #3c4043;
+            border-radius: 10px;
             cursor: pointer;
         }
         
-        #epg-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
+        .channel-item:active {
+            background: #61dafb;
+            color: #000;
+        }
+        
+        .channel-item.active {
+            background: #4fa3c4;
         }
         
         /* Toast notifications */
@@ -233,69 +263,93 @@
             font-size: 18px;
         }
         
-        /* Swipe gestures for channel switching */
-        .swipe-area {
-            position: absolute;
-            top: 0;
-            width: 20%;
-            height: 100%;
-            z-index: 5;
+        /* Search bar */
+        #channel-search {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
         }
         
-        #swipe-left {
-            left: 0;
+        /* EPG button */
+        #epg-btn {
+            padding: 12px;
+            margin: 10px 15px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
         }
         
-        #swipe-right {
-            right: 0;
+        #epg-btn:active {
+            background: #e55a2b;
         }
     </style>
 </head>
 <body>
     <div id="app-container">
-        <!-- Video Player -->
+        <!-- Video Player - 50% -->
         <div id="video-container">
             <video id="video" controls playsinline>
                 Your browser does not support the video tag.
             </video>
+            <button id="maximize-btn">⛶</button>
             <div class="loading" id="loading" style="display: none;">Loading...</div>
-            
-            <!-- Swipe areas for channel switching -->
-            <div class="swipe-area" id="swipe-left"></div>
-            <div class="swipe-area" id="swipe-right"></div>
         </div>
         
-        <!-- Bottom Controls -->
-        <div id="controls">
-            <div class="control-buttons">
-                <button class="control-btn" id="prev-channel">← Prev</button>
-                <button class="control-btn" id="epg-btn">EPG</button>
-                <button class="control-btn" id="next-channel">Next →</button>
+        <!-- Controls - 50% -->
+        <div id="controls-container">
+            <!-- Current Channel Info -->
+            <div id="channel-info">
+                <div id="current-channel">Select a channel</div>
+                <div id="channel-status">Ready</div>
             </div>
             
-            <div id="channel-selector">
-                <input type="text" id="channel-search" placeholder="Search channels...">
-                <button id="channel-list-btn">Channels</button>
+            <!-- Navigation Buttons -->
+            <div id="nav-buttons">
+                <button class="nav-btn" id="prev-channel">← PREV</button>
+                <button class="nav-btn" id="next-channel">NEXT →</button>
             </div>
+            
+            <!-- EPG Button -->
+            <button id="epg-btn">📺 PROGRAM GUIDE</button>
+            
+            <!-- Quick Channels List -->
+            <div id="quick-channels">
+                <div style="text-align: center; padding: 20px; color: #888;">
+                    Tap "ALL CHANNELS" to browse
+                </div>
+            </div>
+            
+            <!-- All Channels Button -->
+            <button id="channel-list-btn" style="
+                margin: 10px;
+                padding: 15px;
+                background: #61dafb;
+                color: #000;
+                border: none;
+                border-radius: 10px;
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer;
+            ">📋 ALL CHANNELS</button>
         </div>
     </div>
     
     <!-- Channel List Overlay -->
     <div id="channel-overlay">
         <div id="channel-header">
-            <h3>Channels</h3>
+            <h3>All Channels</h3>
             <button id="close-channels">Close</button>
         </div>
+        <input type="text" id="channel-search" placeholder="Search channels...">
         <div id="channels-list"></div>
-    </div>
-    
-    <!-- EPG Overlay -->
-    <div id="epg-overlay">
-        <div id="epg-header">
-            <h3>Electronic Program Guide</h3>
-            <button id="close-epg">Close</button>
-        </div>
-        <div id="epg-content"></div>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.11/shaka-player.compiled.js"></script>
@@ -304,13 +358,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
     <script>
-        // Mobile IPTV App
+        // Mobile IPTV App with 50/50 layout
         class MobileIPTV {
             constructor() {
                 this.channels = [];
                 this.currentChannelIndex = 0;
                 this.player = null;
                 this.xmlepg = null;
+                this.isFullscreen = false;
                 
                 this.initializeApp();
             }
@@ -324,9 +379,6 @@
                 
                 // Setup event listeners
                 this.setupEventListeners();
-                
-                // Setup swipe gestures
-                this.setupSwipeGestures();
             }
             
             initializePlayer() {
@@ -336,10 +388,18 @@
                 // Handle player events
                 this.player.addEventListener('loading', () => {
                     document.getElementById('loading').style.display = 'block';
+                    this.updateChannelStatus('Loading...');
                 });
                 
                 this.player.addEventListener('loaded', () => {
                     document.getElementById('loading').style.display = 'none';
+                    this.updateChannelStatus('Playing');
+                });
+                
+                this.player.addEventListener('error', (error) => {
+                    document.getElementById('loading').style.display = 'none';
+                    this.updateChannelStatus('Error loading channel');
+                    console.error('Player error:', error);
                 });
             }
             
@@ -351,6 +411,7 @@
             async loadPlaylistFromUrl(url) {
                 try {
                     document.getElementById('loading').style.display = 'block';
+                    this.updateChannelStatus('Loading playlist...');
                     
                     const response = await fetch(url);
                     if (response.ok) {
@@ -381,6 +442,7 @@
                 }
                 
                 this.updateChannelList();
+                this.updateQuickChannels();
                 
                 if (this.channels.length > 0) {
                     this.playChannel(0);
@@ -409,6 +471,33 @@
                     });
                     
                     channelsList.appendChild(channelItem);
+                });
+            }
+            
+            updateQuickChannels() {
+                const quickChannels = document.getElementById('quick-channels');
+                quickChannels.innerHTML = '';
+                
+                // Show first 8 channels as quick access
+                const quickAccessChannels = this.channels.slice(0, 8);
+                
+                quickAccessChannels.forEach((channel, index) => {
+                    const quickChannel = document.createElement('div');
+                    quickChannel.className = 'quick-channel';
+                    if (index === this.currentChannelIndex) {
+                        quickChannel.classList.add('active');
+                    }
+                    
+                    quickChannel.innerHTML = `
+                        <img src="${channel.tvgLogo}" alt="${channel.channelName}" class="channel-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjNjFkYWZiIi8+Cjx0ZXh0IHg9IjIwIiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+VFY8L3RleHQ+Cjwvc3ZnPgo='">
+                        <span class="channel-name">${channel.channelName}</span>
+                    `;
+                    
+                    quickChannel.addEventListener('click', () => {
+                        this.playChannel(index);
+                    });
+                    
+                    quickChannels.appendChild(quickChannel);
                 });
             }
             
@@ -442,13 +531,24 @@
                     document.getElementById('video').play();
                     
                     // Update UI
+                    this.updateChannelInfo(channel.channelName);
                     this.updateChannelList();
+                    this.updateQuickChannels();
                     this.showToast(`Now playing: ${channel.channelName}`);
                     
                 } catch (error) {
                     console.error('Error playing channel:', error);
                     this.showToast('Error playing channel');
+                    this.updateChannelStatus('Error');
                 }
+            }
+            
+            updateChannelInfo(channelName) {
+                document.getElementById('current-channel').textContent = channelName;
+            }
+            
+            updateChannelStatus(status) {
+                document.getElementById('channel-status').textContent = status;
             }
             
             nextChannel() {
@@ -461,6 +561,20 @@
                 this.playChannel(prevIndex);
             }
             
+            toggleFullscreen() {
+                this.isFullscreen = !this.isFullscreen;
+                const appContainer = document.getElementById('app-container');
+                const maximizeBtn = document.getElementById('maximize-btn');
+                
+                if (this.isFullscreen) {
+                    appContainer.classList.add('fullscreen');
+                    maximizeBtn.textContent = '⛷';
+                } else {
+                    appContainer.classList.remove('fullscreen');
+                    maximizeBtn.textContent = '⛶';
+                }
+            }
+            
             setupEventListeners() {
                 // Channel navigation
                 document.getElementById('prev-channel').addEventListener('click', () => this.prevChannel());
@@ -470,51 +584,21 @@
                 document.getElementById('channel-list-btn').addEventListener('click', () => this.showChannelList());
                 document.getElementById('close-channels').addEventListener('click', () => this.hideChannelList());
                 
+                // Fullscreen
+                document.getElementById('maximize-btn').addEventListener('click', () => this.toggleFullscreen());
+                
                 // EPG
                 document.getElementById('epg-btn').addEventListener('click', () => this.showEPG());
-                document.getElementById('close-epg').addEventListener('click', () => this.hideEPG());
                 
                 // Search
                 document.getElementById('channel-search').addEventListener('input', (e) => {
                     this.filterChannels(e.target.value);
                 });
                 
-                // Touch gestures for video controls
-                document.getElementById('video').addEventListener('dblclick', () => {
-                    if (document.getElementById('video').paused) {
-                        document.getElementById('video').play();
-                    } else {
-                        document.getElementById('video').pause();
-                    }
-                });
-            }
-            
-            setupSwipeGestures() {
-                let startX = 0;
-                let endX = 0;
-                
-                const swipeLeft = document.getElementById('swipe-left');
-                const swipeRight = document.getElementById('swipe-right');
-                
-                swipeLeft.addEventListener('touchstart', (e) => {
-                    startX = e.touches[0].clientX;
-                });
-                
-                swipeLeft.addEventListener('touchend', (e) => {
-                    endX = e.changedTouches[0].clientX;
-                    if (startX - endX > 50) { // Swipe left
-                        this.prevChannel();
-                    }
-                });
-                
-                swipeRight.addEventListener('touchstart', (e) => {
-                    startX = e.touches[0].clientX;
-                });
-                
-                swipeRight.addEventListener('touchend', (e) => {
-                    endX = e.changedTouches[0].clientX;
-                    if (endX - startX > 50) { // Swipe right
-                        this.nextChannel();
+                // Keyboard shortcuts for fullscreen
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'f' || e.key === 'F') {
+                        this.toggleFullscreen();
                     }
                 });
             }
@@ -545,36 +629,12 @@
             }
             
             showEPG() {
-                const epgContent = document.getElementById('epg-content');
-                
                 if (this.xmlepg) {
-                    // Simple EPG display for mobile
-                    epgContent.innerHTML = '<div class="loading">Loading EPG...</div>';
-                    
-                    setTimeout(() => {
-                        let epgHtml = '<h4>Current Programs</h4>';
-                        this.channels.forEach((channel, index) => {
-                            epgHtml += `
-                                <div class="channel-item" onclick="iptvApp.playChannel(${index}); iptvApp.hideEPG();">
-                                    <img src="${channel.tvgLogo}" alt="${channel.channelName}" class="channel-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjNjFkYWZiIi8+Cjx0ZXh0IHg9IjIwIiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+VFY8L3RleHQ+Cjwvc3ZnPgo='">
-                                    <div>
-                                        <div class="channel-name">${channel.channelName}</div>
-                                        <div style="font-size: 12px; color: #ccc;">No program information available</div>
-                                    </div>
-                                </div>
-                            `;
-                        });
-                        epgContent.innerHTML = epgHtml;
-                    }, 500);
+                    this.showToast('Program guide loaded');
+                    // You can implement EPG display here
                 } else {
-                    epgContent.innerHTML = '<p>No program guide available</p>';
+                    this.showToast('No program guide available');
                 }
-                
-                document.getElementById('epg-overlay').style.display = 'flex';
-            }
-            
-            hideEPG() {
-                document.getElementById('epg-overlay').style.display = 'none';
             }
             
             showToast(message) {
