@@ -69,6 +69,27 @@
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
         }
         
+        /* Viewer count */
+        #viewer-count {
+            position: absolute;
+            top: 10px;
+            right: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 15px;
+            padding: 5px 10px;
+            font-size: 12px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        #viewer-count::before {
+            content: "👁";
+            font-size: 10px;
+        }
+        
         /* Maximize button */
         #maximize-btn {
             position: absolute;
@@ -248,6 +269,11 @@
             background: rgba(0, 0, 0, 0.8);
         }
         
+        .fullscreen #viewer-count {
+            top: 20px;
+            right: 70px;
+        }
+        
         /* Channel list overlay */
         #channel-overlay {
             position: fixed;
@@ -354,6 +380,7 @@
             <div id="brand-logo">
                 <div id="brand-circle">Reyniel<br>TV</div>
             </div>
+            <div id="viewer-count">0</div>
             <video id="video" controls playsinline>
                 Your browser does not support the video tag.
             </video>
@@ -412,6 +439,8 @@
                 this.player = null;
                 this.xmlepg = null;
                 this.isFullscreen = false;
+                this.viewerCount = 0;
+                this.viewerUpdateInterval = null;
                 
                 this.initializeApp();
             }
@@ -425,6 +454,9 @@
                 
                 // Setup event listeners
                 this.setupEventListeners();
+                
+                // Start viewer count simulation
+                this.startViewerCountSimulation();
             }
             
             initializePlayer() {
@@ -594,6 +626,9 @@
                     this.updateQuickChannels();
                     this.showToast(`Now playing: ${channel.channelName}`);
                     
+                    // Update viewer count when changing channels
+                    this.updateViewerCount();
+                    
                 } catch (error) {
                     console.error('Error playing channel:', error);
                     this.showToast('Error playing channel');
@@ -686,6 +721,41 @@
                 } else {
                     this.showToast('No program guide available');
                 }
+            }
+            
+            // Viewer count functionality
+            updateViewerCount() {
+                // For demo purposes, we'll simulate viewer counts
+                // In a real app, you would fetch this from your server
+                const channel = this.channels[this.currentChannelIndex];
+                if (!channel) return;
+                
+                // Generate a random viewer count between 50-500 for demo
+                // In a real app, you would get this from your server API
+                const baseViewers = Math.floor(Math.random() * 450) + 50;
+                this.viewerCount = baseViewers;
+                
+                // Update the display
+                document.getElementById('viewer-count').textContent = this.formatViewerCount(this.viewerCount);
+            }
+            
+            formatViewerCount(count) {
+                if (count >= 1000) {
+                    return (count / 1000).toFixed(1) + 'k';
+                }
+                return count.toString();
+            }
+            
+            startViewerCountSimulation() {
+                // Simulate viewer count changes every 30 seconds
+                this.viewerUpdateInterval = setInterval(() => {
+                    // Simulate small fluctuations in viewer count
+                    const change = Math.floor(Math.random() * 20) - 10; // -10 to +10
+                    this.viewerCount = Math.max(10, this.viewerCount + change);
+                    
+                    // Update the display
+                    document.getElementById('viewer-count').textContent = this.formatViewerCount(this.viewerCount);
+                }, 30000);
             }
             
             showToast(message) {
