@@ -5,7 +5,7 @@
     <meta content="width=device-width,initial-scale=1" name="viewport">
     <meta content="no-referrer" name="referrer">
     <link href="data:image/x-icon;," rel="icon">
-    <title>ReiynielTV - Enhanced IPTV</title>
+    <title>ReynielTV - Clean IPTV</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.11.2/controls.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -479,39 +479,6 @@
             cursor: pointer;
         }
         
-        /* Playback controls */
-        #playback-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 15;
-        }
-        
-        #video-container:hover #playback-controls {
-            opacity: 1;
-        }
-        
-        .playback-btn {
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
         /* Bottom action buttons */
         .bottom-actions {
             display: flex;
@@ -546,13 +513,6 @@
             </video>
             <button id="maximize-btn">⛶</button>
             <div class="loading" id="loading" style="display: none;">Loading...</div>
-            
-            <!-- Playback Controls -->
-            <div id="playback-controls">
-                <button class="playback-btn" id="rewind-btn"><i class="fas fa-backward"></i></button>
-                <button class="playback-btn" id="play-pause-btn"><i class="fas fa-play"></i></button>
-                <button class="playback-btn" id="forward-btn"><i class="fas fa-forward"></i></button>
-            </div>
             
             <!-- Volume Control -->
             <div id="volume-control">
@@ -1115,39 +1075,6 @@
                 document.getElementById('volume-slider').addEventListener('input', (e) => {
                     document.getElementById('video').volume = e.target.value / 100;
                 });
-                
-                // Playback controls
-                document.getElementById('play-pause-btn').addEventListener('click', () => this.togglePlayPause());
-                document.getElementById('rewind-btn').addEventListener('click', () => this.rewind());
-                document.getElementById('forward-btn').addEventListener('click', () => this.forward());
-                
-                // Category tabs
-                document.querySelectorAll('.category-tab').forEach(tab => {
-                    tab.addEventListener('click', () => this.switchCategory(tab.dataset.category));
-                });
-            }
-            
-            togglePlayPause() {
-                const video = document.getElementById('video');
-                const btn = document.getElementById('play-pause-btn');
-                
-                if (video.paused) {
-                    video.play();
-                    btn.innerHTML = '<i class="fas fa-pause"></i>';
-                } else {
-                    video.pause();
-                    btn.innerHTML = '<i class="fas fa-play"></i>';
-                }
-            }
-            
-            rewind() {
-                const video = document.getElementById('video');
-                video.currentTime = Math.max(0, video.currentTime - 10);
-            }
-            
-            forward() {
-                const video = document.getElementById('video');
-                video.currentTime = Math.min(video.duration, video.currentTime + 10);
             }
             
             showChannelList() {
