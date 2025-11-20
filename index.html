@@ -23,19 +23,20 @@
             overflow: hidden;
         }
         
-        /* 50/50 Layout */
+        /* 60/40 Layout - More space for channels */
         #app-container {
             display: flex;
             flex-direction: column;
             height: 100vh;
         }
         
-        /* Video player - 50% */
+        /* Video player - 40% (reduced from 50%) */
         #video-container {
-            height: 50vh;
+            height: 40vh;
             background: #000;
             position: relative;
             flex-shrink: 0;
+            border: none; /* Remove any borders */
         }
         
         #video {
@@ -93,19 +94,19 @@
             background: rgba(97, 218, 251, 0.8);
         }
         
-        /* Controls - 50% */
+        /* Controls - 60% (increased from 50%) */
         #controls-container {
             flex: 1;
             background: #2d2d2d;
             display: flex;
             flex-direction: column;
-            height: 50vh;
+            height: 60vh;
             overflow: hidden;
         }
         
         /* Channel info - mas compact */
         #channel-info {
-            padding: 10px 15px;
+            padding: 8px 15px;
             background: #3c4043;
             border-bottom: 1px solid #444;
             flex-shrink: 0;
@@ -121,7 +122,7 @@
         #current-channel {
             font-size: 16px;
             font-weight: bold;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         
         #channel-status {
@@ -146,18 +147,18 @@
         #nav-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            padding: 10px;
+            gap: 6px;
+            padding: 8px;
             flex-shrink: 0;
         }
         
         .nav-btn {
-            padding: 12px;
+            padding: 10px;
             background: #61dafb;
             color: #000;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 6px;
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -177,11 +178,11 @@
         }
         
         .category-tab {
-            padding: 10px 15px;
+            padding: 8px 12px;
             background: none;
             border: none;
             color: #aaa;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             white-space: nowrap;
             border-bottom: 2px solid transparent;
@@ -206,11 +207,11 @@
         .quick-channel {
             display: flex;
             align-items: center;
-            padding: 6px 8px;
+            padding: 5px 6px;
             background: #3c4043;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
-            min-height: 35px;
+            min-height: 32px;
             position: relative;
         }
         
@@ -224,16 +225,16 @@
         }
         
         .channel-logo {
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-            border-radius: 4px;
+            width: 22px;
+            height: 22px;
+            margin-right: 6px;
+            border-radius: 3px;
             object-fit: cover;
             flex-shrink: 0;
         }
         
         .channel-name {
-            font-size: 12px;
+            font-size: 11px;
             flex: 1;
             white-space: nowrap;
             overflow: hidden;
@@ -242,19 +243,19 @@
         
         .channel-fav {
             color: #ff6b35;
-            font-size: 12px;
-            margin-left: 5px;
+            font-size: 11px;
+            margin-left: 4px;
         }
         
         /* All Channels Button */
         #channel-list-btn {
-            margin: 8px;
-            padding: 12px;
+            margin: 6px;
+            padding: 10px;
             background: #61dafb;
             color: #000;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 6px;
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
             flex-shrink: 0;
@@ -357,10 +358,10 @@
         .channel-item {
             display: flex;
             align-items: center;
-            padding: 10px;
-            margin-bottom: 6px;
+            padding: 8px;
+            margin-bottom: 5px;
             background: #3c4043;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
         }
         
@@ -463,18 +464,18 @@
         /* Recent channels */
         #recent-channels {
             display: none;
-            padding: 10px;
+            padding: 8px;
             border-bottom: 1px solid #444;
         }
         
         .recent-channel {
             display: inline-flex;
             align-items: center;
-            padding: 5px 10px;
-            margin-right: 8px;
+            padding: 4px 8px;
+            margin-right: 6px;
             background: #3c4043;
-            border-radius: 15px;
-            font-size: 12px;
+            border-radius: 12px;
+            font-size: 11px;
             cursor: pointer;
         }
         
@@ -510,11 +511,32 @@
             align-items: center;
             justify-content: center;
         }
+        
+        /* Bottom action buttons */
+        .bottom-actions {
+            display: flex;
+            gap: 8px;
+            padding: 6px;
+            flex-shrink: 0;
+        }
+        
+        #settings-btn {
+            padding: 10px;
+            background: #555;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
     <div id="app-container">
-        <!-- Video Player - 50% -->
+        <!-- Video Player - 40% (reduced) -->
         <div id="video-container">
             <div id="brand-logo">
                 <div id="brand-circle">Reyniel<br>TV</div>
@@ -539,7 +561,7 @@
             </div>
         </div>
         
-        <!-- Controls - 50% -->
+        <!-- Controls - 60% (increased) -->
         <div id="controls-container">
             <!-- Current Channel Info -->
             <div id="channel-info">
@@ -562,7 +584,7 @@
                 <!-- More categories will be added dynamically -->
             </div>
             
-            <!-- Navigation Buttons -->
+            <!-- Navigation Buttons - Smaller -->
             <div id="nav-buttons">
                 <button class="nav-btn" id="prev-channel">← PREV</button>
                 <button class="nav-btn" id="next-channel">NEXT →</button>
@@ -574,9 +596,9 @@
             </div>
             
             <!-- Bottom Action Buttons -->
-            <div style="display: flex; gap: 8px; padding: 8px;">
+            <div class="bottom-actions">
                 <button id="channel-list-btn" style="flex: 1;">📋 ALL CHANNELS</button>
-                <button id="settings-btn" style="padding: 12px; background: #555; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                <button id="settings-btn">
                     <i class="fas fa-cog"></i>
                 </button>
             </div>
@@ -948,7 +970,7 @@
                 }
                 
                 recentContainer.style.display = 'block';
-                recentContainer.innerHTML = '<span style="margin-right: 10px; font-size: 12px; color: #aaa;">Recent:</span>';
+                recentContainer.innerHTML = '<span style="margin-right: 10px; font-size: 11px; color: #aaa;">Recent:</span>';
                 
                 this.recentChannels.forEach(index => {
                     const channel = this.channels[index];
@@ -957,7 +979,7 @@
                     const recentEl = document.createElement('div');
                     recentEl.className = 'recent-channel';
                     recentEl.innerHTML = `
-                        <img src="${channel.tvgLogo}" alt="${channel.channelName}" style="width: 16px; height: 16px; border-radius: 3px; margin-right: 5px;" onerror="this.style.display='none'">
+                        <img src="${channel.tvgLogo}" alt="${channel.channelName}" style="width: 14px; height: 14px; border-radius: 2px; margin-right: 4px;" onerror="this.style.display='none'">
                         <span>${channel.channelName}</span>
                     `;
                     
