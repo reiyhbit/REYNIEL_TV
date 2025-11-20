@@ -146,23 +146,6 @@
             transform: scale(0.95);
         }
         
-        /* EPG button - mas compact */
-        #epg-btn {
-            padding: 10px;
-            margin: 8px 10px;
-            background: #ff6b35;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        
-        #epg-btn:active {
-            background: #e55a2b;
-        }
-        
         /* Quick channels - LAHAT NG CHANNELS NA! */
         #quick-channels {
             flex: 1;
@@ -374,9 +357,6 @@
                 <button class="nav-btn" id="prev-channel">← PREV</button>
                 <button class="nav-btn" id="next-channel">NEXT →</button>
             </div>
-            
-            <!-- EPG Button -->
-            <button id="epg-btn">📺 PROGRAM GUIDE</button>
             
             <!-- Quick Channels List - LAHAT NG CHANNELS NA! -->
             <div id="quick-channels">
@@ -645,9 +625,6 @@
                 // Fullscreen
                 document.getElementById('maximize-btn').addEventListener('click', () => this.toggleFullscreen());
                 
-                // EPG
-                document.getElementById('epg-btn').addEventListener('click', () => this.showEPG());
-                
                 // Search
                 document.getElementById('channel-search').addEventListener('input', (e) => {
                     this.filterChannels(e.target.value);
@@ -677,15 +654,6 @@
                         item.style.display = 'none';
                     }
                 });
-            }
-            
-            showEPG() {
-                if (this.xmlepg) {
-                    this.showToast('Program guide loaded');
-                    // You can implement EPG display here
-                } else {
-                    this.showToast('No program guide available');
-                }
             }
             
             showToast(message) {
